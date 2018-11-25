@@ -1,0 +1,9 @@
+.Todos{
+    text-align: center;
+    margin-top:13vh;
+}
+i:hover{
+    cursor: pointer;
+    cursor: hand;
+    font-weight: bold;
+}

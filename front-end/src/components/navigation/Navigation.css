@@ -1,0 +1,14 @@
+.Navigation{
+    color:black;
+}
+a{
+    color:black;
+}
+a:hover{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+ul{
+    width: 30%;
+}
