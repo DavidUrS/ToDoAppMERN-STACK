@@ -6,7 +6,7 @@ const Navigation = ()=>{
     return(
         <div className={'Navigation mb-4'}>
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded fixed-top">
-                <NavLink to="/" className="brand-logo font-weight-bold">TO DO APPS</NavLink>
+                <NavLink to="/" className="brand-logo font-weight-bold"><img src={require('./../../assets/tasks.png')}/> MY TO-DO APP  </NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
