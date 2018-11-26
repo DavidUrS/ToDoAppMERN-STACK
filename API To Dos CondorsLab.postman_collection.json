@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "22b8a9f3-3e2a-466c-b7e3-970b31e670c3",
+		"name": "API To Dos CondorsLab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Mary\",\n\t\"lastname\":\"Puello\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								""
+							]
+						},
+						"description": "What does this petition do?\nThis request creates a new user\n\n\nWhat answers and status do I get when making the request?\nThe system validates the data, if it passes the validations the client will receive a message of object form that will have the following form {message: 'Successful management message', type: 'success'}(status 201), the type success is to indicate that the process it was done correctly, if the data validation is not exceeded, the client will receive a message of object form that will have the following form {message: 'Description of validations not overcome in an enumerated way', type: 'danger'}(status 200), the type danger is to indicate that the process was not performed due to unsuccessful validations."
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Lucia\",\n\t\"lastname\":\"Uribe\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/user/5bfc0be34226dd17d3154785",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"5bfc0be34226dd17d3154785"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/user/5bfc0be34226dd17d3154785",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"5bfc0be34226dd17d3154785"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/user/5bfc1caccb85642c590c37bd",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user",
+								"5bfc1caccb85642c590c37bd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"item": [
+				{
+					"name": "GetTodos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/todos/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddToDo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"nadar\",\n\t\"description\":\"Salir a nadar junto con Lucia\",\n\t\"status\":\"Open\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteToDo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/todos/5bf961193366590b93c74421",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"5bf961193366590b93c74421"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStatusToDos(ENUM)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/todos/status",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetToDoByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/todos/5bf96c983366590b93c74426",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"5bf96c983366590b93c74426"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateToDo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"nadar\",\n\t\"description\":\"Salir a nadar junto con Lucia\",\n\t\"status\":\"Open\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/5bf96c983366590b93c74426",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"5bf96c983366590b93c74426"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetToDosByStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/todos/status/In-Progress",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"status",
+								"In-Progress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetToDoByName",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"Nadar\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/search",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "iteractions",
+			"item": [
+				{
+					"name": "AsignUserToTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userVirtual\": \"David\",\n\t\"taskName\": \"nadar\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/asign/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"asign",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RemoveUserToTask",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"5bf96c983366590b93c74426\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/remove",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeStatus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"5bf9d5da5301b715d4197ee2\",\n\t\"status\":\"Open\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/todos/status",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"todos",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
