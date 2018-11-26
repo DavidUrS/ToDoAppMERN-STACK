@@ -2,6 +2,8 @@ const doModel = require('./../models/to-do-model');
 const User = require('./../models/user-model');
 const mongoose = require('mongoose');
 const toDoController = {}
+const validator = require('../middlewares/task-validation');
+
 
 toDoController.getStatus = (req,res)=>{
     let response = {
@@ -30,23 +32,37 @@ toDoController.getToDos = (req,res)=>{
 }
 
 toDoController.getToDoByName = (req,res)=>{
-    doModel.find({title:req.body.title},(err,toDos)=>{
-        if(err){
-            let response = {
-                message: `An error occurred when consulting the to dos ${err}`,
-                type:'danger'
-            }
-            res.status(500).json(response);
-        }else{
-            if(toDos){
-                let response = {
-                    message: toDos,
-                    type:'success'
-                }
-                res.status(201).json(response);
-            }
+    const errors = validator.validatorErrors(req);
+    if (errors.length>0) {
+        let listErrors = '';
+        errors.forEach((err, index, errors)=>{
+            listErrors += 'Error n°'+(index+1)+': '+err.msg+". "
+        })
+        let response = {
+            message: listErrors,
+            type:'danger'
         }
-    })
+        return res.json(response)
+    }else{
+        doModel.find({title:req.body.title},(err,toDos)=>{
+            if(err){
+                let response = {
+                    message: `An error occurred when consulting the to dos ${err}`,
+                    type:'danger'
+                }
+                res.status(500).json(response);
+            }else{
+                if(toDos){
+                    let response = {
+                        message: toDos,
+                        type:'success'
+                    }
+                    res.status(201).json(response);
+                }
+            }
+        })
+    }
+    
 }
 
 toDoController.getToDosByStatus = (req,res)=>{
@@ -113,28 +129,41 @@ toDoController.getToDoById = (req,res)=>{
 }
 
 toDoController.createToDo = (req,res)=>{
-    const newToDo = new doModel({
-        _id: new mongoose.Types.ObjectId(),
-        title: req.body.title,
-        description: req.body.description,
-        date: req.body.date,
-        status: req.body.status
-    })
-    newToDo.save((err,toDoAdd)=>{
-        if(err){
-            let response = {
-                message: `An error occurred creating the new to do. ${err}`,
-                type:'danger'
-            }
-            res.status(500).json(response);
-        }else{
-            let response = {
-                message: `The new to do was created successfully.`,
-                type:'success'
-            }
-            res.status(201).json(response)
+    const errors = validator.validatorErrors(req);
+    if (errors.length>0) {
+        let listErrors = '';
+        errors.forEach((err, index, errors)=>{
+            listErrors += 'Error n°'+(index+1)+': '+err.msg+". "
+        })
+        let response = {
+            message: listErrors,
+            type:'danger'
         }
-    })
+        return res.json(response)
+    }else{
+        const newToDo = new doModel({
+            _id: new mongoose.Types.ObjectId(),
+            title: req.body.title,
+            description: req.body.description,
+            date: req.body.date,
+            status: req.body.status
+        })
+        newToDo.save((err,toDoAdd)=>{
+            if(err){
+                let response = {
+                    message: `An error occurred creating the new to do. ${err}`,
+                    type:'danger'
+                }
+                res.status(500).json(response);
+            }else{
+                let response = {
+                    message: `The new to do was created successfully.`,
+                    type:'success'
+                }
+                res.status(201).json(response)
+            }
+        })
+    }
 }
 
 toDoController.deleteTodo = (req,res)=>{
@@ -156,28 +185,41 @@ toDoController.deleteTodo = (req,res)=>{
 }
 
 toDoController.editToDo = (req,res)=>{
-    const toDoEdit = new doModel({
-        _id: req.params.id,
-        title: req.body.title,
-        description: req.body.description,
-        status: req.body.status
-    })
-    doModel.findByIdAndUpdate(req.params.id,{$set:toDoEdit},{new:true},(err,toDo)=>{
-        if(err){
-            let response = {
-                message: `An error occurred while updating the to do. ${err}`,
-                type:'danger'
-            }
-            res.status(500).json(response);
+    const errors = validator.validatorErrors(req);
+    if (errors.length>0) {
+        let listErrors = '';
+        errors.forEach((err, index, errors)=>{
+            listErrors += 'Error n°'+(index+1)+': '+err.msg+". "
+        })
+        let response = {
+            message: listErrors,
+            type:'danger'
         }
-        else{
-            let response = {
-                message: `The to do was updated correctly.`,
-                type:'success'
+        return res.json(response)
+    }else{
+        const toDoEdit = new doModel({
+            _id: req.params.id,
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status
+        })
+        doModel.findByIdAndUpdate(req.params.id,{$set:toDoEdit},{new:true},(err,toDo)=>{
+            if(err){
+                let response = {
+                    message: `An error occurred while updating the to do. ${err}`,
+                    type:'danger'
+                }
+                res.status(500).json(response);
             }
-            res.status(201).json(response)
-        }
-    })
+            else{
+                let response = {
+                    message: `The to do was updated correctly.`,
+                    type:'success'
+                }
+                res.status(201).json(response)
+            }
+        })
+    }
 }
 
 toDoController.chageStatus = (req,res)=>{
