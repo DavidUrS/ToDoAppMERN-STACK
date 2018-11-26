@@ -11,7 +11,7 @@ class Todos extends Component{
             _id: '',
             userVirtual: '',
             taskName: '',
-            statusFilter: 'Open'
+            statusFilter: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.addToDo = this.addToDo.bind(this);
@@ -59,18 +59,18 @@ class Todos extends Component{
     }
     editToDo(id){
         fetch(`http://localhost:8000/todos/${id}`)
-      .then(res=>res.json())
-      .then(data=>{
-        this.setState({
-            status: data.message.status,
-            title: data.message.title,
-            description: data.message.description,
-            _id: data.message._id
+        .then(res=>res.json())
+        .then(data=>{
+            this.setState({
+                status: data.message.status,
+                title: data.message.title,
+                description: data.message.description,
+                _id: data.message._id
+            })
         })
-      })
-      .catch(err=>{
-        console.log(err)
-      })
+        .catch(err=>{
+            console.log(err)
+        })
     }
     handleChangeFilter(e){      
         this.props.filterTasks(e.target.value)

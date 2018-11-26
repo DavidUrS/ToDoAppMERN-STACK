@@ -26,6 +26,67 @@ class App extends Component {
     })
     .catch(error => console.error(error))
   }
+
+  addUser(newUser){
+    if(newUser._id){
+      fetch(`http://localhost:8000/user/${newUser._id}`,{
+        method: 'PUT',
+        body: JSON.stringify(newUser),
+        headers: {
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        this.getUsers();
+        this.getToDos();
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+
+    }else{
+      fetch(`http://localhost:8000/user`,{
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: {
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data.message)
+        this.getUsers();
+        this.getToDos();
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
+
+  deleteUser(id){
+    if(window.confirm('Sure?')){
+      fetch(`http://localhost:8000/user/${id}`,{
+        method: 'DELETE',
+        headers: {
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+        }
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data.message)
+        this.getUsers();
+        this.getToDos();
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
   
   getStatus(){
     fetch('http://localhost:8000/todos/status')
@@ -235,7 +296,12 @@ class App extends Component {
           status={this.state.listStatus}
           changeStatus={this.updateStatus.bind(this)}
           />}/>
-          <Route path='/users' component={Users}/>
+          <Route path='/users' component={(props)=><Users
+          {...this.props}
+          users={this.state.users}
+          createUser={this.addUser.bind(this)}
+          deleteUser={this.deleteUser.bind(this)}
+          />}/>
           
         </Switch>
       </div>
