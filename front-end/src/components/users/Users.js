@@ -10,6 +10,7 @@ class Users extends Component{
             _id: ''
         }
     }
+    
     handleChange(e){
         const {name, value} = e.target;
         this.setState({
@@ -23,6 +24,7 @@ class Users extends Component{
             name:'',
             lastname:''
         })
+
     }
     editUser(id){
         fetch(`http://localhost:8000/user/${id}`)
@@ -63,10 +65,10 @@ class Users extends Component{
                         <p className={'lead'}>Add new user</p>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <div className="form-group">
-                                <input type="text" className="form-control" name='name' placeholder="Enter name" onChange={this.handleChange.bind(this)} value={this.state.name}/>
+                                <input type="text" className="form-control" name='name' placeholder="Enter name" onChange={this.handleChange.bind(this)} value={this.state.name} required/>
                             </div>
                             <div className="form-group">
-                                <input type="text" className="form-control" name='lastname' placeholder="Enter lastname" onChange={this.handleChange.bind(this)} value={this.state.lastname}/>
+                                <input type="text" className="form-control" name='lastname' placeholder="Enter lastname" onChange={this.handleChange.bind(this)} value={this.state.lastname} required/>
                             </div>
                             <button type="submit" className="btn btn-outline-primary">Save &nbsp;<i className="far fa-save"></i></button>
                         </form>

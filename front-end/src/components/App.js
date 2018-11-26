@@ -4,6 +4,8 @@ import Todos from './todos/Todos';
 import Users from './users/Users';
 import Trello from './trello/Trello';
 import Navigation from './navigation/Navigation';
+import Notifications, {notify} from 'react-notify-toast';
+
 import './App.css';
 
 class App extends Component {
@@ -41,6 +43,7 @@ class App extends Component {
       .then(data=>{
         this.getUsers();
         this.getToDos();
+        notify.show(data.message,data.type);
       })
       .catch(err=>{
         console.log(err)
@@ -57,9 +60,9 @@ class App extends Component {
       })
       .then(res=>res.json())
       .then(data=>{
-        console.log(data.message)
         this.getUsers();
         this.getToDos();
+        notify.show(data.message,data.type);
       })
       .catch(err=>{
         console.log(err)
@@ -78,9 +81,9 @@ class App extends Component {
       })
       .then(res=>res.json())
       .then(data=>{
-        console.log(data.message)
         this.getUsers();
         this.getToDos();
+        notify.show(data.message,data.type);        
       })
       .catch(err=>{
         console.log(err)
@@ -121,8 +124,8 @@ class App extends Component {
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log(data.message)
       this.getToDos();
+      notify.show(data.message,data.type);
     })
     .catch(err=>{
       console.log(err)
@@ -139,8 +142,8 @@ class App extends Component {
       })
       .then(res=>res.json())
       .then(data=>{
-        console.log(data.message)
         this.getToDos();
+        notify.show(data.message,data.type);
       })
       .catch(err=>{
         console.log(err)
@@ -158,8 +161,8 @@ class App extends Component {
       })
       .then(res=>res.json())
       .then(data=>{
-        console.log(data.message)
         this.getToDos();
+        notify.show(data.message,data.type);
       })
       .catch(err=>{
         console.log(err)
@@ -181,8 +184,8 @@ class App extends Component {
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log(data.message)
       this.getToDos();
+      notify.show(data.message,data.type);
     })
     .catch(err=>{
       console.log(err)
@@ -203,8 +206,8 @@ class App extends Component {
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log(data.message)
       this.getToDos();
+      notify.show(data.message,data.type);
     })
     .catch(err=>{
       console.log(err)
@@ -256,6 +259,7 @@ class App extends Component {
     .then(res=>res.json())
     .then(data=>{
       this.getToDos();
+      notify.show(data.message,data.type);
     })
     .catch(err=>{
       console.log(err)
@@ -304,6 +308,8 @@ class App extends Component {
           />}/>
           
         </Switch>
+        <Notifications options={{zIndex: 200, top: '500px'}}/>
+
       </div>
       
       </BrowserRouter>
