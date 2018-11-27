@@ -1,5 +1,6 @@
 const {validationResult}  = require('express-validator/check');
 
+//Function to validate the name and lastname
 const validateUsers = check => {
     return [
         check('name').not().isEmpty().withMessage('The name of the user is required')
@@ -8,8 +9,10 @@ const validateUsers = check => {
     ]
 }
 
+//Obtain the errors of validations, is an array, if not exists errors will be empty
 const validatorErrors = req => {
     return !validationResult(req).isEmpty() ? validationResult(req).array() : [];
 }
 
+//Export functions to validate an errors founds
 module.exports = { validateUsers, validatorErrors }

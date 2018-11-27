@@ -1,10 +1,11 @@
+//Importing the task model, user model, mongoose and the validator
 const doModel = require('./../models/to-do-model');
 const User = require('./../models/user-model');
 const mongoose = require('mongoose');
 const toDoController = {}
 const validator = require('../middlewares/task-validation');
 
-
+//Controller to obtain the list of the estates
 toDoController.getStatus = (req,res)=>{
     let response = {
         message:doModel.schema.path('status').enumValues,
@@ -13,6 +14,7 @@ toDoController.getStatus = (req,res)=>{
     res.status(201).json(response);
 }
 
+//Controller to obtain the list of tasks
 toDoController.getToDos = (req,res)=>{
     doModel.find().populate('userVirtual').exec((err,toDos)=>{
         if(err){
@@ -31,6 +33,7 @@ toDoController.getToDos = (req,res)=>{
     })
 }
 
+//Cotroller to obtain the list of task by title 
 toDoController.getToDoByName = (req,res)=>{
     const errors = validator.validatorErrors(req);
     if (errors.length>0) {
@@ -65,6 +68,7 @@ toDoController.getToDoByName = (req,res)=>{
     
 }
 
+//Controller to obtain the list of task by status
 toDoController.getToDosByStatus = (req,res)=>{
     if(req.params.status=='All'){
         doModel.find().populate('userVirtual').exec((err,tasks)=>{
@@ -101,6 +105,7 @@ toDoController.getToDosByStatus = (req,res)=>{
     }
 }
 
+//Controller to obtain de the task by id (for edit task, this return one task)
 toDoController.getToDoById = (req,res)=>{
     doModel.findById(req.params.id,(err,toDo)=>{
         if(err){
@@ -128,6 +133,7 @@ toDoController.getToDoById = (req,res)=>{
     })
 }
 
+//Controller to create a new task
 toDoController.createToDo = (req,res)=>{
     const errors = validator.validatorErrors(req);
     if (errors.length>0) {
@@ -166,6 +172,7 @@ toDoController.createToDo = (req,res)=>{
     }
 }
 
+//Controller to delete a task
 toDoController.deleteTodo = (req,res)=>{
     doModel.findByIdAndRemove(req.params.id,(err,toDo)=>{
         if(err){
@@ -184,6 +191,7 @@ toDoController.deleteTodo = (req,res)=>{
     })
 }
 
+//Controller to edit a task
 toDoController.editToDo = (req,res)=>{
     const errors = validator.validatorErrors(req);
     if (errors.length>0) {
@@ -222,6 +230,7 @@ toDoController.editToDo = (req,res)=>{
     }
 }
 
+//Controller to change the status a task
 toDoController.chageStatus = (req,res)=>{
     const updateStatus = new doModel({
         _id: req.body.id,
@@ -244,6 +253,7 @@ toDoController.chageStatus = (req,res)=>{
     })
 }
 
+//Controller to asign task to a user
 toDoController.assignUser = (req,res)=>{
     doModel.findOne({title:req.body.taskName},(err,toDo)=>{
         if(toDo){
@@ -280,6 +290,7 @@ toDoController.assignUser = (req,res)=>{
     })
 }
 
+//Controller to remove user from task
 toDoController.removeUserToDo = (req,res)=>{
     const editTask = new doModel({
         user: null
@@ -301,4 +312,5 @@ toDoController.removeUserToDo = (req,res)=>{
     })
 }
 
+//Export controller for use in the routes
 module.exports = toDoController;

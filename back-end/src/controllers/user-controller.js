@@ -1,9 +1,10 @@
+//Importing the user model, mongoose and the validator
 const User = require('./../models/user-model');
 const mongoose = require('mongoose');
 const userController = {};
 const validator = require('../middlewares/user-validation');
 
-
+//Controller to delete a user
 userController.deleteUser = (req,res)=>{
     User.findByIdAndRemove(req.params.id, (err,user)=>{
         if(err){
@@ -22,6 +23,7 @@ userController.deleteUser = (req,res)=>{
     })
 }
 
+//Controller to create a user
 userController.createUser = (req,res)=>{
     const errors = validator.validatorErrors(req);
     if (errors.length>0) {
@@ -58,6 +60,7 @@ userController.createUser = (req,res)=>{
     }
 }
 
+//Controller to edit a user
 userController.editUser = (req,res)=>{
     const errors = validator.validatorErrors(req);
     if (errors.length>0) {
@@ -94,6 +97,7 @@ userController.editUser = (req,res)=>{
     }
 }
 
+//Controller to obtain a user by id (for edit)
 userController.findById = (req,res)=>{
     User.findById(req.params.id,(err,user)=>{
         if(err){
@@ -112,6 +116,7 @@ userController.findById = (req,res)=>{
     })
 }
 
+//Controller to get all users
 userController.getUsers = (req,res)=>{
     User.find((err,users)=>{
         if(err){
@@ -130,4 +135,5 @@ userController.getUsers = (req,res)=>{
     })
 }
 
+//Export controller for use in the routes
 module.exports = userController;
