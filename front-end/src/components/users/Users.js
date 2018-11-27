@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Users.css';
 
 class Users extends Component{
+    //Constructor for initialize states of component
     constructor(props){
         super(props);
         this.state={
@@ -10,13 +11,14 @@ class Users extends Component{
             _id: ''
         }
     }
-    
+    //Handle inputs by change (form)    
     handleChange(e){
         const {name, value} = e.target;
         this.setState({
             [name]: value
         })
     }
+    //Handle of submit form
     handleSubmit(e){
         e.preventDefault();
         this.props.createUser(this.state)
@@ -26,6 +28,7 @@ class Users extends Component{
         })
 
     }
+    //Function to edit a user
     editUser(id){
         fetch(`http://localhost:8000/user/${id}`)
       .then(res=>res.json())
@@ -40,11 +43,13 @@ class Users extends Component{
         console.log(err)
       })
     }
+    //Function to dele user
     deleteUser(id){
         this.props.deleteUser(id)
     }
 
     render(){
+        //START Iteration functions, for iterate arrays and show data en html (users)
         const listUsers = this.props.users.map(user=>{
             return(
                 <tr key={user._id}>
@@ -58,6 +63,7 @@ class Users extends Component{
                 </tr>
             )
         })
+        //END Iteration functions, for iterate arrays and show data en html (users)
         return(
             <div className='Users container text-center'>
                 <div className={'row'}>
@@ -95,4 +101,5 @@ class Users extends Component{
     }
 }
 
+//Exporting component
 export default Users;

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Trello.css';
 
 class Trello extends Component{
+    //Constructor for initialize states of component
     constructor(props){
         super(props);
         this.state={
@@ -14,6 +15,7 @@ class Trello extends Component{
         this.handleChangeStatus = this.handleChangeStatus.bind(this)
     }
 
+    //Function to search a task by title
     searchTask(e){
         e.preventDefault();
         this.props.search(this.state.taskName)
@@ -22,6 +24,7 @@ class Trello extends Component{
         })
     }
 
+    //select to chage status a task
     handleChangeStatus(e,id_task) {
         let updateStatus ={
             id: id_task,
@@ -30,10 +33,12 @@ class Trello extends Component{
         this.props.changeStatus(updateStatus);
     }
 
+    //Function of button for sow all tasks
     showAll(){
         this.props.all();
     }
 
+    //Handle inputs by change
     handleChange(e){
         this.setState({
             taskName: e.target.value
@@ -41,6 +46,7 @@ class Trello extends Component{
     }
 
     render(){
+        //START Iteration functions, for iterate arrays and show data en html (tasks)
         const listStatus = this.props.status.map((stat,i)=>{
             return(
                 <option className={'text-white border-0'} key={i} value={stat}>{stat}</option>
@@ -104,6 +110,7 @@ class Trello extends Component{
                 </div>
             )
         })
+        //END Iteration functions, for iterate arrays and show data en html (tasks)
         return(
             <div className={'Trello container'}>
                 <form onSubmit={this.searchTask}>
@@ -123,4 +130,5 @@ class Trello extends Component{
     }
 }
 
+//Exporting component
 export default Trello;

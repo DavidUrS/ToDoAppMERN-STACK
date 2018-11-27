@@ -9,6 +9,7 @@ import Notifications, {notify} from 'react-notify-toast';
 import './App.css';
 
 class App extends Component {
+    //Constructor for initialize states of component
   constructor(){
     super();
     this.state={
@@ -18,6 +19,7 @@ class App extends Component {
     }
   }
 
+  //Function to get all users
   getUsers(){
     fetch('http://localhost:8000/user')
     .then(response => response.json())
@@ -29,6 +31,7 @@ class App extends Component {
     .catch(error => console.error(error))
   }
 
+  //Function to create a new user or edit user (if newUser._id !=='')
   addUser(newUser){
     if(newUser._id){
       fetch(`http://localhost:8000/user/${newUser._id}`,{
@@ -70,6 +73,7 @@ class App extends Component {
     }
   }
 
+  //Function to delete a user
   deleteUser(id){
     if(window.confirm('Sure?')){
       fetch(`http://localhost:8000/user/${id}`,{
@@ -91,6 +95,7 @@ class App extends Component {
     }
   }
   
+  //Function to get enum values of status
   getStatus(){
     fetch('http://localhost:8000/todos/status')
     .then(response => response.json())
@@ -102,6 +107,7 @@ class App extends Component {
     .catch(error => console.error(error))
   }
 
+  //Function to get tasks
   getToDos(){
     fetch('http://localhost:8000/todos')
     .then(response => response.json())
@@ -113,6 +119,7 @@ class App extends Component {
     .catch(error => console.error(error))
   }
 
+  //Function to create new task
   addToDo(toDo){
     fetch('http://localhost:8000/todos',{
       method: 'POST',
@@ -131,6 +138,8 @@ class App extends Component {
       console.log(err)
     })
   }
+
+  //Function to delete a task
   deleteToDo(id_toDo){
     if(window.confirm('Sure?')){
       fetch(`http://localhost:8000/todos/${id_toDo}`,{
@@ -150,6 +159,8 @@ class App extends Component {
       })
     }
   }
+
+  //Function to edit a task
   editToDo(toDo){
     fetch(`http://localhost:8000/todos/${toDo._id}`,{
         method: 'PUT',
@@ -169,6 +180,7 @@ class App extends Component {
       })
   }
 
+  //Function to asign user to a task
   asignUser(userVirtual,taskName){
     const asign = {
       userVirtual,
@@ -192,6 +204,7 @@ class App extends Component {
     })
   }
 
+  //Function to remove user from a task
   removeUser(id){
     const remove = {
       id
@@ -213,6 +226,8 @@ class App extends Component {
       console.log(err)
     })
   }
+
+  //Function to filter task by status
   filterTasks(status){
     fetch(`http://localhost:8000/todos/status/${status}`)
     .then(response => response.json())
@@ -224,6 +239,7 @@ class App extends Component {
     .catch(error => console.error(error))
   }
 
+  ///Function tu filter task by title
   searchByName(title){
     let searh = {
       title
@@ -247,6 +263,7 @@ class App extends Component {
     })
   }
 
+  //Function to change task status
   updateStatus(newData){
     fetch(`http://localhost:8000/todos/status`,{
       method: 'POST',
@@ -266,7 +283,7 @@ class App extends Component {
     })
   }
 
-
+  //Getting users, status and tasks after the component mounted
   componentDidMount(){
     this.getUsers();
     this.getStatus();
@@ -276,6 +293,7 @@ class App extends Component {
   
   render() {
     return (
+      //Render the components by routing, and creating de props for pass data to children components
       <BrowserRouter>
       <div>
         <Navigation/>
@@ -317,4 +335,5 @@ class App extends Component {
   }
 }
 
+//Exporting the component for use in index.js
 export default App;

@@ -2,6 +2,7 @@ import React from 'react';
 import './Navigation.css';
 import { NavLink } from 'react-router-dom';
 
+//Component only for views, navigation
 const Navigation = ()=>{
     return(
         <div className={'Navigation mb-4'}>
@@ -10,7 +11,6 @@ const Navigation = ()=>{
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto d-flex justify-content-around">
                         <li><NavLink className={'font-weight-bold'} to="/">ToDos</NavLink></li>
@@ -23,4 +23,5 @@ const Navigation = ()=>{
     )
 }
 
+//Exporting navigation
 export default Navigation;

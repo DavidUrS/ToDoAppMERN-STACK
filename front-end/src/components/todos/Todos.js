@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import './Todos.css';
 
+//Creating a class component Todos
 class Todos extends Component{
+    //Constructor for initialize states of component
     constructor(props){
         super(props);
         this.state={
@@ -17,29 +19,38 @@ class Todos extends Component{
         this.addToDo = this.addToDo.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
     }
+    //Handler of status of form to create task (select)
     handleChangeStatus(e) {
         this.setState({status: e.target.value});
     }
+    //Handler of the user in asign-task form (select for asign user to a task)
     handleChangeUser(e) {
         this.setState({userVirtual: e.target.value});
     }
+    //Handler of task in  in asign-task from (select for asign user to a task)
     handleChangeTasks(e) {
         this.setState({taskName: e.target.value});
     }
+    //Handler of texts inputs, in form to create a task
     handleChange(e){
         const {name, value} = e.target;
         this.setState({
             [name]:value
         })
     }
+    //Function to asign user to a task
     asignUser(user,task){
         if(this.state.taskName !== '' && this.state.userVirtual !== ''){
+            //Calling to prop of parent component App.js
             this.props.asign(user,task)
         }
     }
+    //Function to remove task from a user
     removeUserToDo(id){
+        //Calling to prop of parent component App.js
         this.props.removeUser(id);
     }
+    //Function to add new task, (calling a prop of parent componente)
     addToDo(e){
         e.preventDefault();
         if(this.state._id){
@@ -54,9 +65,11 @@ class Todos extends Component{
             })
         }  
     }
+    //Function to delete a task (calling a prop)
     deleteToDo(id){
         this.props.delete(id);
     }
+    //Function to edit task, make a request to get by for get the current data (is a important data _id)
     editToDo(id){
         fetch(`http://localhost:8000/todos/${id}`)
         .then(res=>res.json())
@@ -72,6 +85,7 @@ class Todos extends Component{
             console.log(err)
         })
     }
+    //Filtrando tasks by status
     handleChangeFilter(e){      
         this.props.filterTasks(e.target.value)
         this.setState({
@@ -80,6 +94,7 @@ class Todos extends Component{
         console.log(this.state.statusFilter)
     }
     render(){
+        //START Iteration functions, for iterate arrays and show data en html (users, tasks, status)
         const listTasks = this.props.todos.map(task=>{
             return(
                 <option key={task._id} value={task.title}>{task.title}</option>
@@ -131,9 +146,12 @@ class Todos extends Component{
                 </tr>
             )
         })
+        //END Iteration functions, for iterate arrays and show data en html (users, tasks, status)
+
         return(
             <div className='Todos container-fluid'>
                 <div className={'row'}>
+                {/* START Column of six for create a new task */}
                     <div className={'col md-6'}>
                         <p className="lead">To Do Form</p>   
                         <form onSubmit={this.addToDo}>
@@ -154,6 +172,9 @@ class Todos extends Component{
                             <button type="submit" className="btn btn-primary">Save &nbsp;<i className="far fa-save"></i></button>
                         </form>
                     </div>
+                {/* END Column of six for create a new task */}
+
+                {/* START Column of six for asign task to a user */}
                     <div className={'col md-6'}>
                     <p className={'lead'}>Assigning and removing tasks to a user</p>
                         <form className={'mx-auto'}>
@@ -189,9 +210,11 @@ class Todos extends Component{
                             </div>
                         </form>
                     </div>
+                {/* END Column of six for asign task to a user */}
                 </div>
                 <div className={'row mt-3'}>
                 <hr></hr>
+                {/* START Column of twelve for list tasks, filter tasks by status, delete tasks, edit tasks, remove user from a task */}
                     <div className={'col-md-12'}>
                     <p className={'lead text-center'}>List of To Dos</p>
                         <div className={'row'}>
@@ -217,11 +240,12 @@ class Todos extends Component{
                             </table>
                         </div>
                     </div>
+                {/* END Column of twelve for list tasks, filter tasks by status, delete tasks, edit tasks, remove user from a task */}
                 </div>
             </div>
         )
     }
-    
 }
 
+//Exporting the Todos component
 export default Todos;
